@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <main class="shell">
+        <section class="card">
+            <p class="eyebrow">Secure portal</p>
+            <h1>Welcome back</h1>
+            <p class="lede">Sign in with your account to continue.</p>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <label for="id_username">Username</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <p class="field-error">{{ form.username.errors.0 }}</p>
+                {% endif %}
+
+                <label for="id_password">Password</label>
+                {{ form.password }}
+                {% if form.password.errors %}
+                    <p class="field-error">{{ form.password.errors.0 }}</p>
+                {% endif %}
+
+                <button type="submit">Sign in</button>
+            </form>
+            <p class="hint">Demo user: <strong>demo</strong> / <strong>demo1234</strong></p>
+        </section>
+    </main>
+</body>
+</html>
